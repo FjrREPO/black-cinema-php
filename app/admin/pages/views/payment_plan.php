@@ -160,10 +160,8 @@ $query = mysqli_query($conn, "SELECT * FROM payment_plan");
                 .catch(error => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success',
-                        text: 'PaymentPlan added successfully!',
-                    }).then(() => {
-                        location.reload();
+                        title: 'Error',
+                        text: 'Failed to add payment. Please try again. ' + error,
                     });
                 });
         });

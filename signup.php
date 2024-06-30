@@ -46,12 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert user data
-    $sql_insert = "INSERT INTO user (user_id, user_username, user_email, user_password, user_image, user_role)
-                   VALUES (?, ?, ?, ?, ?, 'user')";
-    $user_id = generateRandomString();
+    $sql_insert = "INSERT INTO user (user_username, user_email, user_password, user_image, user_role)
+                   VALUES (?, ?, ?, ?, 'user')";
     $user_image = "https://example.com/default_image.jpg";
     $stmt = mysqli_prepare($conn, $sql_insert);
-    mysqli_stmt_bind_param($stmt, "sssss", $user_id, $name, $email, $password_hashed, $user_image);
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $password_hashed, $user_image);
     $insert_result = mysqli_stmt_execute($stmt);
 
     if ($insert_result) {
@@ -80,11 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 mysqli_close($conn);
-
-function generateRandomString($length = 32)
-{
-    return bin2hex(random_bytes($length / 2));
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

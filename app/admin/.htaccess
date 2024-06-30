@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    ErrorDocument 404 http://localhost/Perpustakaan/app/admin/home.php?module=pages/error/404.php
+    ErrorDocument 404 http://black-cinema-php.test/app/admin/home.php?module=pages/error/404.php
 
     RewriteRule ^dashboard$ home.php [L]
     RewriteRule ^home$ home.php?module=pages/views/dashboard [L]
