@@ -1,3 +1,12 @@
+<?php
+if (isset($_POST['logout'])) {
+    session_destroy();
+    $_SERVER['PHP_SELF'];
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,9 +69,11 @@
                 <button id="profileButton" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-700" type="button">
                     <a href="pages/profile.php">Profile</a>
                 </button>
-                <button id="signOutButton" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-700" type="button">
-                    Sign Out
-                </button>
+                <form action="post">
+                    <button id="signOutButton" type="submit" name="logout" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-700" type="button">
+                        Sign Out
+                    </button>
+                </form>
             </div>
         </div>
         <button id="signInButton" class="w-fit h-[37px] border border-gray-300 rounded-full px-2 dark:border-gray-600">
