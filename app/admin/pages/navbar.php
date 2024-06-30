@@ -68,30 +68,25 @@
         var paymentsDropdown = document.getElementById('paymentsDropdown');
         var mobilePaymentsDropdown = document.getElementById('mobilePaymentsDropdown');
 
-        // Toggle mobile menu visibility
         mobileMenuButton.addEventListener('click', function() {
             mobileMenuItems.classList.toggle('hidden');
         });
 
-        // Toggle payments dropdown visibility (desktop)
         paymentsLink.addEventListener('click', function() {
             paymentsDropdown.classList.toggle('hidden');
         });
 
-        // Close payments dropdown when clicking outside (desktop)
         document.addEventListener('click', function(event) {
             if (!paymentsLink.contains(event.target)) {
                 paymentsDropdown.classList.add('hidden');
             }
         });
 
-        // Toggle payments dropdown visibility (mobile)
         var paymentsLinkMobile = document.getElementById('paymentsLinkMobile');
         paymentsLinkMobile.addEventListener('click', function() {
             mobilePaymentsDropdown.classList.toggle('hidden');
         });
 
-        // Close payments dropdown when clicking outside (mobile)
         document.addEventListener('click', function(event) {
             if (!paymentsLinkMobile.contains(event.target)) {
                 mobilePaymentsDropdown.classList.add('hidden');

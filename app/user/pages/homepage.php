@@ -30,13 +30,13 @@
     <div class="flex bg-black p-4">
         <?php
         include("conn.php");
-        $sql = mysqli_query($conn, "SELECT poster_path, title, category FROM movie");
+        $sql = mysqli_query($conn, "SELECT * FROM movie");
         $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
         foreach ($hasil as $data) {
         ?>
-            <div class="flex lg:flex-rw md:flex-row max-w-lg rounded-2xl overflow-hidden m-4 hover:scale-105 transition duration-200 ease-in-out">
+            <a class="flex lg:flex-rw md:flex-row max-w-lg rounded-2xl overflow-hidden m-4 hover:scale-105 transition duration-200 ease-in-out" href="movie_details?id=<?= $data['id'] ?>">
                 <img class="w-full md:w-60 object-cover" src="<?= $data['poster_path'] ?>" alt="<?= $data['title'] ?>">
-            </div>
+            </a>
         <?php
         }
         ?>

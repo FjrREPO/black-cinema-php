@@ -1,9 +1,12 @@
 <IfModule mod_rewrite.c>
-RewriteEngine on
-ErrorDocument 404 http://localhost/black_cinema/404
+    RewriteEngine on
+    ErrorDocument 404 http://localhost/black_cinema/404
 
-RewriteRule ^dashboard$ home.php [L]
-RewriteRule ^home$ home.php?module=pages/views/home [L]
+    RewriteRule ^dashboard$ home.php [L]
+    RewriteRule ^home$ home.php?module=pages/views/home [L]
+    RewriteRule ^movie_details$ home.php?module=pages/views/movie_details [QSA,L]
+    RewriteRule ^movie_order$ home.php?module=pages/views/movie_order [QSA,L]
+    RewriteRule ^movie_checkout$ home.php?module=pages/views/movie_checkout [QSA,L]
 
-RewriteRule ^keluar$ logout.php [L]
+    RewriteRule ^keluar$ logout.php [L]
 </IfModule>

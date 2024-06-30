@@ -151,9 +151,11 @@ $query = mysqli_query($conn, "SELECT * FROM payment_plan");
                         });
                     } else {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to add payment. Please try again.',
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Movie added successfully!',
+                        }).then(() => {
+                            location.reload();
                         });
                     }
                 })
