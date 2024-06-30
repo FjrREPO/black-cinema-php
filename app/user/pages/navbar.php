@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="hidden md:block z-10 p-2" style="background-color: rgba(128, 128, 128, 0.2);">
+    <nav class="hidden md:block z-50 p-2" style="background-color: rgba(0, 0, 0, 0.8);">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
             <a href="home.php" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="https://res.cloudinary.com/dutlw7bko/image/upload/v1716618897/Cinema/Logo/Cuplikan_layar_2024-05-14_083355_jr8lu6_1_wc2vsh.png" class="h-12 rounded-lg" alt="Flowbite Logo" />

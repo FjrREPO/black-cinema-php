@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $methodPayment = isset($_POST['methodPayment']) ? mysqli_real_escape_string($conn, $_POST['methodPayment']) : null;
     $status = "pending";
     $expiredPayment = date('Y-m-d H:i:s', strtotime('+30 minutes'));
-    $successPayment = date('Y-m-d H:i:s');
+    $successPayment = null;
 
     $dateStart = new DateTime($startTime);
 
@@ -75,10 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      packageName, methodPayment, promoCode, status, expiredPayment, successPayment, room)
                     VALUES 
                     ('$userId', '$movieId', '$startTime', '$endTime', '$userName', '$userEmail', '$feeAdmin', '$price', '$totalPrice',
-                     '$packageName', '$methodPayment', '$promoCode', '$status', '$expiredPayment', '$successPayment', '$room')";
+                     '$packageName', '$methodPayment', '$promoCode', '$status', '$expiredPayment', NULL, '$room')";
 
     if (mysqli_query($conn, $insertQuery)) {
-        header('Location: pages/views/movie_cart.php');
+        header('Location: ../../../movie_cart');
         exit;
     } else {
         echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);

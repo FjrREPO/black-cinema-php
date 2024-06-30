@@ -1,9 +1,19 @@
 <?php
-if (isset($_POST['logout'])) {
-    session_destroy();
-    $_SERVER['PHP_SELF'];
-    exit;
+include '../../config/conn.php';
+
+$sql = "SELECT MONTH(createdAt) AS month, SUM(totalPrice) AS total FROM payment WHERE YEAR(createdAt) = YEAR(CURDATE()) GROUP BY MONTH(createdAt)";
+$result = $conn->query($sql);
+
+$incomeData = array_fill(0, 12, 0);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $month = intval($row['month']) - 1;
+        $incomeData[$month] = intval($row['total']);
+    }
 }
+
+$conn->close();
 ?>
 
 <div class="w-full h-auto px-5">
@@ -11,13 +21,11 @@ if (isset($_POST['logout'])) {
         <div class="border-b-[3px]">
             <div class="container flex flex-wrap items-center justify-between gap-6 py-8">
                 <span class="text-3xl font-bold">Hello, <?php echo $_SESSION['user_username']; ?>!👋🏼</span>
-                <form method="post">
-                    <button type="submit" name="logout" class="bg-red-700 text-sm py-3 px-5 rounded-md text-white hover:bg-red-900 duration-200">Logout</button>
-                </form>
+                <a href="logout" class="bg-red-700 text-sm py-3 px-5 rounded-md text-white hover:bg-red-900 duration-200">Logout</a>
             </div>
         </div>
         <div class="w-full h-auto">
-            <div class="w-full flex flex-row items-center justify-between py-10">
+            <div class="w-full flex flex-row items-center justify-between py-5">
                 <h1 class="text-3xl font-bold">Grafik Pemasukan tahun ini</h1>
             </div>
             <canvas id="myChart" style="width:100%; max-height:400px;"></canvas>
@@ -30,20 +38,12 @@ if (isset($_POST['logout'])) {
         var monthlyData = {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             datasets: [{
-                    label: 'Pemasukkan',
-                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
-                    borderColor: 'rgba(16, 185, 129, 1)',
-                    borderWidth: 1,
-                    data: [5000, 6000, 4500, 7000, 5500, 0, 0, 0, 0, 0, 0, 0]
-                },
-                {
-                    label: 'Pengeluaran',
-                    backgroundColor: 'rgba(239, 68, 68, 0.8)',
-                    borderColor: 'rgba(239, 68, 68, 1)',
-                    borderWidth: 1,
-                    data: [3000, 3500, 4000, 3800, 4200, 0, 0, 0, 0, 0, 0, 0]
-                }
-            ]
+                label: 'Pemasukkan',
+                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                borderColor: 'rgba(16, 185, 129, 1)',
+                borderWidth: 1,
+                data: <?php echo json_encode($incomeData); ?>
+            }]
         };
 
         var options = {
@@ -85,13 +85,7 @@ if (isset($_POST['logout'])) {
         incomeGradient.addColorStop(0, 'rgba(16, 185, 129, 1)');
         incomeGradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
 
-        var expenseGradient = ctx.createLinearGradient(0, 0, 0, 300);
-        expenseGradient.addColorStop(0, 'rgba(239, 68, 68, 1)');
-        expenseGradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
-
         monthlyData.datasets[0].backgroundColor = incomeGradient;
-        monthlyData.datasets[1].backgroundColor = expenseGradient;
-
 
         var myChart = new Chart(ctx, {
             type: 'bar',
