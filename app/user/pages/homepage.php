@@ -34,13 +34,51 @@
         $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
         foreach ($hasil as $data) {
         ?>
-            <a class="flex lg:flex-rw md:flex-row max-w-lg rounded-2xl overflow-hidden m-4 hover:scale-105 transition duration-200 ease-in-out" href="movie_details?id=<?= $data['id'] ?>">
-                <img class="w-full md:w-60 object-cover" src="<?= $data['poster_path'] ?>" alt="<?= $data['title'] ?>">
-            </a>
+            <div>
+                <a class="flex lg:flex-rw md:flex-row max-w-lg rounded-2xl overflow-hidden m-4 hover:scale-105 transition duration-200 ease-in-out" href="movie_details?id=<?= $data['id'] ?>">
+                    <img class="w-full md:w-60 object-cover" src="<?= $data['poster_path'] ?>" alt="<?= $data['title'] ?>">
+                </a>
+                <button class="toggleFavorite" data-movie-id="<?= $data['id'] ?>">
+                    <span class="bookmark-icon far fa-bookmark text-yellow-500"></span>
+                </button>
+            </div>
         <?php
         }
         ?>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.toggleFavorite').each(function() {
+                var movieId = $(this).data('movie-id');
+                var isFavorited = localStorage.getItem('favorite_' + movieId);
+
+                if (isFavorited === 'true') {
+                    $(this).find('.bookmark-icon').addClass('fas').removeClass('far');
+                } else {
+                    $(this).find('.bookmark-icon').addClass('far').removeClass('fas');
+                }
+            });
+
+            $('.toggleFavorite').click(function() {
+                var movieId = $(this).data('movie-id');
+                var button = $(this);
+                var isFavorited = localStorage.getItem('favorite_' + movieId);
+
+                if (isFavorited === 'true') {
+                    localStorage.setItem('favorite_' + movieId, 'false');
+                    button.find('.bookmark-icon').removeClass('fas').addClass('far');
+                    Swal.fire('Removed from favorites', '', 'success');
+                } else {
+                    localStorage.setItem('favorite_' + movieId, 'true');
+                    button.find('.bookmark-icon').removeClass('far').addClass('fas');
+                    Swal.fire('Added to favorites', '', 'success');
+                }
+            });
+        });
+    </script>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.js"></script>
 </body>

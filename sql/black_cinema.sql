@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 30, 2024 at 08:00 AM
+-- Generation Time: Jun 30, 2024 at 11:33 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Database: `black_cinema`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertisement`
+--
+
+CREATE TABLE `advertisement` (
+  `id` int NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `movie_id` int NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `user_id`, `movie_id`, `created_at`) VALUES
+(12, 4, 700, '2024-06-30 18:27:56');
 
 -- --------------------------------------------------------
 
@@ -48,7 +79,8 @@ CREATE TABLE `movie` (
 --
 
 INSERT INTO `movie` (`id`, `userId`, `createdAt`, `title`, `overview`, `poster_path`, `backdrop_path`, `genres`, `category`, `release_date`, `trailer`, `movieDuration`, `vote_average`) VALUES
-(700, 2, '2024-06-30 14:48:40', 'Sri Asih', 'Alana discover the truth about her origin: she’s not an ordinary human being. She may be the gift for humanity and become its protector as Sri Asih. Or a destruction, if she can’t control her anger.', 'https://image.tmdb.org/t/p/w500//wShcJSKMFg1Dy1yq7kEZuay6pLS.jpg', 'https://image.tmdb.org/t/p/w1280//oFAukXiMPrwLpbulGmB5suEZlrm.jpg', '[\"Action\",\" Adventure\",\" Science Fiction\",\" Fantasy\",\" Drama\"]', '[\"top movies\"]', '2022-11-17', 'https://www.youtube.com/watch?v=QeT6Ke2kQYo', '134', 6.236);
+(700, 2, '2024-06-30 14:48:40', 'Sri Asih', 'Alana discover the truth about her origin: she’s not an ordinary human being. She may be the gift for humanity and become its protector as Sri Asih. Or a destruction, if she can’t control her anger.', 'https://image.tmdb.org/t/p/w500//wShcJSKMFg1Dy1yq7kEZuay6pLS.jpg', 'https://image.tmdb.org/t/p/w1280//oFAukXiMPrwLpbulGmB5suEZlrm.jpg', '[\"Action\",\" Adventure\",\" Science Fiction\",\" Fantasy\",\" Drama\"]', '[\"top movies\"]', '2022-11-17', 'https://www.youtube.com/watch?v=QeT6Ke2kQYo', '134', 6.236),
+(701, 2, '2024-06-30 18:31:07', 'Kung Fu Hustle', 'It\\\'s the 1940s, and the notorious Axe Gang terrorizes Shanghai. Small-time criminals Sing and Bone hope to join, but they only manage to make lots of very dangerous enemies. Fortunately for them, kung fu masters and hidden strength can be found in unlikely places. Now they just have to take on the entire Axe Gang.', 'https://image.tmdb.org/t/p/w500//exbyTbrvRUDKN2mcNEuVor4VFQW.jpg', 'https://image.tmdb.org/t/p/w1280//zNOfW35hBXPIzM5BIl7gptuW0EA.jpg', '[\"Action\",\" Comedy\",\" Crime\",\" Fantasy\"]', '[\"popular movies\"]', '2004-02-10', 'https://www.youtube.com/watch?v=-m3IB7N_PRk', '99', 7.44);
 
 -- --------------------------------------------------------
 
@@ -77,6 +109,13 @@ CREATE TABLE `payment` (
   `room` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `userId`, `movieId`, `createdAt`, `userName`, `userEmail`, `startTime`, `endTime`, `feeAdmin`, `price`, `totalPrice`, `packageName`, `methodPayment`, `promoCode`, `status`, `expiredPayment`, `successPayment`, `room`) VALUES
+(1, 4, 700, '2024-06-30 17:13:49', 'qq', 'qq@gmail.com', '2024-07-01 19:12:00', '2024-07-01 21:26:00', 5000, 1200000, 1205000, '', 'Dana', '', 'pending', '2024-06-30 10:43:49', '2024-06-30 10:13:49', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +131,14 @@ CREATE TABLE `payment_card` (
   `imageQR` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `payment_card`
+--
+
+INSERT INTO `payment_card` (`id`, `numberCard`, `nameCard`, `imageCard`, `categoryInstitue`, `imageQR`) VALUES
+(1, '123434', 'BRI', 'https://cdn3.iconfinder.com/data/icons/banks-in-indonesia-logo-badge/100/BRI-512.png', 'ewallet', 'https://www.techopedia.com/wp-content/uploads/2023/03/aee977ce-f946-4451-8b9e-bba278ba5f13.png'),
+(2, '453564574', 'Dana', 'https://cdn.antaranews.com/cache/1200x800/2022/04/25/dana.jpg', 'ewallet', 'https://www.techopedia.com/wp-content/uploads/2023/03/aee977ce-f946-4451-8b9e-bba278ba5f13.png');
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +152,13 @@ CREATE TABLE `payment_plan` (
   `screenResolution` int DEFAULT NULL,
   `price` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment_plan`
+--
+
+INSERT INTO `payment_plan` (`id`, `packageName`, `capacity`, `screenResolution`, `price`) VALUES
+(1, 'reguler', 23, 50, 1200000);
 
 -- --------------------------------------------------------
 
@@ -146,11 +200,26 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `user_username`, `user_email`, `user_password`, `emailVerified`, `user_image`, `user_role`, `createdAt`, `updatedAt`) VALUES
 (1, 'a', 'a@gmail.com', '$2y$10$JQ7tC/.vzN9ThUr8x1tpO.EdJ9VljEKQwSF4InQIvhE5cSiQ3fkXq', NULL, 'https://example.com/default_image.jpg', 'admin', '2024-06-29 19:49:52', '2024-06-29 19:50:08'),
 (2, 'as', 'as@gmail.com', '$2y$10$j1Mhkjh3QiRATUxYKonvtOdqKsr5reLUOhB/K.EhU0PGxhoiNb1WO', NULL, 'https://example.com/default_image.jpg', 'admin', '2024-06-30 14:47:15', '2024-06-30 14:47:35'),
-(3, 'palkon', 'wildannoob354@gmail.com', '$2y$10$Kfku74OZb9fTSnc8C6dKfORaA50lna9flcwfB.jtiLjXJxgMFE.pi', NULL, 'https://example.com/default_image.jpg', 'user', '2024-06-30 14:55:23', NULL);
+(3, 'palkon', 'wildannoob354@gmail.com', '$2y$10$Kfku74OZb9fTSnc8C6dKfORaA50lna9flcwfB.jtiLjXJxgMFE.pi', NULL, 'https://example.com/default_image.jpg', 'user', '2024-06-30 14:55:23', NULL),
+(4, 'qq', 'qq@gmail.com', '$2y$10$G/y9t9Ms7gAP3mS/4XQG5OfHxhc7m7qGkVoV7rbjiF2Gdaq6Z9teC', NULL, 'https://example.com/default_image.jpg', 'user', '2024-06-30 15:26:59', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `advertisement`
+--
+ALTER TABLE `advertisement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `favorites`
+--
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_favorite` (`user_id`,`movie_id`),
+  ADD KEY `fk_favorites_movie` (`movie_id`);
 
 --
 -- Indexes for table `movie`
@@ -197,6 +266,18 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `advertisement`
+--
+ALTER TABLE `advertisement`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
@@ -206,19 +287,19 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_card`
 --
 ALTER TABLE `payment_card`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_plan`
 --
 ALTER TABLE `payment_plan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_promo`
@@ -230,11 +311,18 @@ ALTER TABLE `payment_promo`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `favorites`
+--
+ALTER TABLE `favorites`
+  ADD CONSTRAINT `fk_favorites_movie` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_favorites_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `movie`
