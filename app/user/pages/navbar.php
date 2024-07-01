@@ -33,7 +33,7 @@
                 <a href="#" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="bell-icon">
                     <i class="fas fa-bell text-xl hover:scale-125"></i>
                 </a>
-                <a href="#" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="cart-icon">
+                <a href="movie_cart" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="cart-icon">
                     <i class="fas fa-shopping-cart text-xl hover:scale-125"></i>
                 </a>
                 <button data-collapse-toggle="navbar-menu" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-muted-foreground dark:text-muted-foreground rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -60,10 +60,9 @@
 
             infoIcon.addEventListener('click', function(event) {
                 infoDropdown.classList.toggle('hidden');
-                event.stopPropagation(); // Prevents the event from bubbling up and closing the dropdown
+                event.stopPropagation();
             });
 
-            // Close dropdown when clicking outside
             window.addEventListener('click', function(event) {
                 if (!infoIcon.contains(event.target) && !infoDropdown.contains(event.target)) {
                     infoDropdown.classList.add('hidden');

@@ -21,7 +21,6 @@ if ($_SESSION['user_role'] != "user") {
 <body class="bg-black text-white overflow-x-hidden">
     <?php include "pages/navbar.php"; ?>
     <?php include "pages/content.php"; ?>
-    <?php include "pages/footer.php"; ?>
 </body>
 
 </html>

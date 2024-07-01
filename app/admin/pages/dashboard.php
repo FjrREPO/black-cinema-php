@@ -1,7 +1,8 @@
 <?php
 include '../../config/conn.php';
+$currentYear = date('Y');
 
-$sql = "SELECT MONTH(createdAt) AS month, SUM(totalPrice) AS total FROM payment WHERE YEAR(createdAt) = YEAR(CURDATE()) GROUP BY MONTH(createdAt)";
+$sql = "SELECT MONTH(createdAt) AS month, SUM(totalPrice) AS total FROM payment WHERE YEAR(createdAt) = $currentYear GROUP BY MONTH(createdAt)";
 $result = $conn->query($sql);
 
 $incomeData = array_fill(0, 12, 0);
@@ -26,7 +27,7 @@ $conn->close();
         </div>
         <div class="w-full h-auto">
             <div class="w-full flex flex-row items-center justify-between py-5">
-                <h1 class="text-3xl font-bold">Grafik Pemasukan tahun ini</h1>
+                <h1 class="text-3xl font-bold">Grafik Pemasukan tahun <?php echo $currentYear; ?></h1>
             </div>
             <canvas id="myChart" style="width:100%; max-height:400px;"></canvas>
         </div>

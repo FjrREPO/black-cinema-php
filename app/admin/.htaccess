@@ -16,5 +16,6 @@
     RewriteRule ^edit_payment_plan$ home.php?module=pages/views/edit_payment_plan [QSA,L]
     RewriteRule ^edit_payment_card$ home.php?module=pages/views/edit_payment_card [QSA,L]
     RewriteRule ^edit_payment_promo_code$ home.php?module=pages/views/edit_payment_promo_code [QSA,L]
+    RewriteRule ^edit_user$ home.php?module=pages/views/edit_user [QSA,L]
     RewriteRule ^logout$ logout.php [L]
 </IfModule>

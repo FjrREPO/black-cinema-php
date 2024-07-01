@@ -44,7 +44,7 @@ $query = mysqli_query($conn, "SELECT * FROM user");
                                 <td class="px-4 py-3"><span><?= $row['user_email']; ?></span></td>
                                 <td class="px-4 py-3"><span><?= $row['user_role']; ?></span></td>
                                 <td class="px-4 py-3">
-                                    <a href="edit_user?id=<?= $row['user_id']; ?>" class="text-green-600 hover:text-green-800">
+                                    <a href="edit_user?user_id=<?= $row['user_id']; ?>" class="text-green-600 hover:text-green-800">
                                         <i class="fa-solid fa-pen-to-square text-green-500"></i>
                                     </a>
                                 </td>
