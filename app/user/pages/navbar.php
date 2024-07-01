@@ -12,28 +12,28 @@
 </head>
 
 <body>
-    <nav class="hidden md:block z-50 p-2" style="background-color: rgba(0, 0, 0, 0.8);">
+    <nav class="hidden md:block p-5 z-50" style="background-color: rgba(0, 0, 0, 0.3);">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
             <a href="home.php" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="https://res.cloudinary.com/dutlw7bko/image/upload/v1716618897/Cinema/Logo/Cuplikan_layar_2024-05-14_083355_jr8lu6_1_wc2vsh.png" class="h-12 rounded-lg" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-bold whitespace-nowrap text-white dark:text-white">Black Cinema</span>
             </a>
             <div class="flex gap-3">
-                <div class="relative rounded-lg nav-icon text-white bg-black dark:text-white dark:bg-black text-sm p-3" id="info-icon">
+                <div class="nav-icon rounded-lg text-white bg-black absolute z-50 text-sm p-3" id="info-icon">
                     <i class="fas fa-info-circle text-xl hover:scale-125"></i>
-                    <div class="absolute right-0 mt-4 top-full w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white hidden dark:bg-black dark:divide-gray-700" id="info-dropdown">
-                        <a href="#" class="block mx-2 my-2 rounded-lg px-2 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">Tentang Kami</a>
-                        <a href="#" class="block mx-2 my-2 rounded-lg px-2 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700">Faq</a>
-                        <a href="#" class="block mx-2 my-2 rounded-lg px-2 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700">Hubungi kami</a>
+                    <div class="absolute right-0 mt-4 top-full w-40 origin-top-right  border border-gray-100 rounded-xl bg-black hidden " id="info-dropdown">
+                        <a href="#" class="block mx-1 my-1 rounded-lg px-2 py-2 text-sm text-white hover:bg-gray-700">Tentang Kami</a>
+                        <a href="#" class="block mx-1 my-1 rounded-lg px-2 py-2 text-sm text-white hover:bg-gray-700">Faq</a>
+                        <a href="#" class="block mx-1 my-1 rounded-lg px-2 py-2 text-sm text-white hover:bg-gray-700">Hubungi kami</a>
                     </div>
                 </div>
-                <a href="#" class="nav-icon rounded-lg text-muted-foreground text-white bg-black dark:text-white dark:bg-black text-sm p-3 hover:scale-125" id="bookmark-icon">
+                <a href="#" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="bookmark-icon">
                     <i class="fas fa-bookmark text-xl hover:scale-125"></i>
                 </a>
-                <a href="#" class="nav-icon rounded-lg text-muted-foreground text-white bg-black dark:text-white dark:bg-black text-sm p-3 hover:scale-125" id="bell-icon">
+                <a href="#" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="bell-icon">
                     <i class="fas fa-bell text-xl hover:scale-125"></i>
                 </a>
-                <a href="#" class="nav-icon rounded-lg text-muted-foreground text-white bg-black dark:text-white dark:bg-black text-sm p-3 hover:scale-125" id="cart-icon">
+                <a href="#" class="nav-icon rounded-lg text-white bg-black absolute text-sm p-3 hover:scale-125" id="cart-icon">
                     <i class="fas fa-shopping-cart text-xl hover:scale-125"></i>
                 </a>
                 <button data-collapse-toggle="navbar-menu" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-muted-foreground dark:text-muted-foreground rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -43,11 +43,8 @@
                     </svg>
                 </button>
             </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-menu">
+            <div class="items-center justify-between z-50 hidden w-full md:flex md:w-auto" id="navbar-menu">
                 <ul class="flex flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0" id="navbar-menu-list">
-                    <li>
-                        <?php include("theme.php"); ?>
-                    </li>
                     <li>
                         <?php include("profileuser.php"); ?>
                     </li>

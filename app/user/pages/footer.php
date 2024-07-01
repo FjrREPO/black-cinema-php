@@ -10,7 +10,7 @@
 
 <body>
 
-    <footer class="relative bottom-0 w-full bg-white border-t border-gray-200 shadow-md p-4">
+    <footer class="relative bottom-0 w-full bg-black border-t border-gray-200 shadow-md p-4">
         <div class="max-w-screen-xl mx-auto">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">

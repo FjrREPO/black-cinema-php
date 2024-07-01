@@ -18,9 +18,10 @@ if ($_SESSION['user_role'] != "user") {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
-<body class="bg-black text-white">
+<body class="bg-black text-white overflow-x-hidden">
     <?php include "pages/navbar.php"; ?>
     <?php include "pages/content.php"; ?>
+    <?php include "pages/footer.php"; ?>
 </body>
 
 </html>

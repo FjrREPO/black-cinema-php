@@ -1,12 +1,3 @@
-<?php
-if (isset($_POST['logout'])) {
-    session_destroy();
-    $_SERVER['PHP_SELF'];
-    exit;
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,52 +19,23 @@ if (isset($_POST['logout'])) {
                 transform: translateY(0);
             }
         }
-
-        .animate-slide-down {
-            animation: slide-down 0.3s ease-out;
-        }
-
-        .dark {
-            --bg-color: #1a202c;
-            /* Warna latar belakang tema gelap */
-            --text-color: #ffffff;
-            /* Warna teks untuk tema gelap */
-        }
-
-        .dark #dropdownMenu {
-            background-color: var(--bg-color);
-            border-color: var(--border-color);
-            color: var(--text-color);
-        }
-
-        .dark #dropdownMenuButton {
-            border-color: var(--border-color);
-            color: var(--text-color);
-        }
-
-        .dark #signInButton {
-            border-color: var(--border-color);
-            color: var(--text-color);
-        }
     </style>
 </head>
 
 <body class="dark:bg-gray-900">
     <div class="flex gap-4 ml-auto mx-auto items-center w-full">
         <div id="user-menu" class="relative">
-            <button id="dropdownMenuButton" class="flex items-center gap-1 rounded-full px-2 border border-gray-300 hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-700">
+            <button id="dropdownMenuButton" class="flex items-center gap-1 rounded-full px-2 border border-gray-300 hover:bg-gray-500 ">
                 <i class="fas fa-bars w-5 h-5"></i>
                 <img id="userImage" src="https://i.pinimg.com/originals/ab/29/56/ab295662776ca57b428156f0071ac8ca.png" alt="User Image" class="rounded-full" width="24" height="24">
             </button>
-            <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 border border-gray-300 shadow-lg rounded-lg p-1 bg-white dark:bg-gray-800 dark:border-gray-600 animate-slide-down">
-                <button id="profileButton" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-700" type="button">
+            <div id="dropdownMenu" class="hidden absolute bg-black right-0 mt-2 w-48 border border-gray-300 shadow-lg rounded-xl p-1 text-white bg-black animate-slide-down">
+                <button id="profileButton" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-500 " type="button">
                     <a href="pages/profile.php">Profile</a>
                 </button>
-                <form action="post">
-                    <button id="signOutButton" type="submit" name="logout" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-200 dark:hover:bg-gray-700" type="button">
-                        Sign Out
-                    </button>
-                </form>
+                <button id="signOutButton" class="text-sm w-full p-2 rounded-lg text-left hover:bg-gray-500 " type="button">
+                    Sign Out
+                </button>
             </div>
         </div>
         <button id="signInButton" class="w-fit h-[37px] border border-gray-300 rounded-full px-2 dark:border-gray-600">
@@ -112,7 +74,7 @@ if (isset($_POST['logout'])) {
             });
 
             profileButton.addEventListener('click', () => {
-                window.location.href = '/app/user/pages/profile.php';
+                window.location.href = 'pages/user/views/profileuser.php';
             });
 
             signOutButton.addEventListener('click', () => {
@@ -121,7 +83,7 @@ if (isset($_POST['logout'])) {
             });
 
             signInButton.addEventListener('click', () => {
-                window.location.href = '/signin';
+                window.location.href = '../../signin';
             });
 
             window.addEventListener('click', (event) => {

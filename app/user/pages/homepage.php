@@ -6,14 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(1, 0, 1, 0.1);
+            border-radius: 20px;
+        }
+
+        .swiper-slide img {
+            max-width: 60%;
+            max-height: 40%;
+            border-radius: 20px;
+        }
+    </style>
 </head>
 
-<body class="h-full w-full flex flex-wrap bg-cover" style="background-image: url('https://res.cloudinary.com/dutlw7bko/image/upload/v1717413141/Cinema/background_homes_wisn4x.jpg')">
+<body class="h-full w-full flex flex-wrap bg-cover overflow-x-hidden" style="background-image: url('https://res.cloudinary.com/dutlw7bko/image/upload/v1717413141/Cinema/background_homes_wisn4x.jpg')">
 
-    <div class="relative mt-20 w-full h-[700px] ">
+    <div class="relative mt-10 w-full h-[50vh] ">
         <div class="absolute inset-0 flex items-center justify-center flex-col gap-5 text-center text-white">
             <h2 class="text-4xl font-bold font-manrope">Heading</h2>
             <h6 class="text-xl font-bold font-manrope">Subheading</h6>
@@ -25,6 +49,31 @@
                 </div>
             </form>
         </div>
+    </div>
+
+    <!-- Swiper -->
+    <div class="swiper-container mt-0 mb-8 relative">
+        <div class="swiper-wrapper">
+            <?php
+            include "E:\laragon\www\black-cinema-php\config\conn.php";
+            $sql = mysqli_query($conn, "SELECT * FROM movie LIMIT 6");
+            $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+            foreach ($hasil as $data) {
+            ?>
+                <div class="swiper-slide">
+                    <a href="movie_details?id=<?= $data['id'] ?>" class="flex justify-center items-center">
+                        <img src="<?= $data['backdrop_path'] ?>" />
+                    </a>
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next absolute top-1/2 right-4 transform -translate-y-1/2"></div>
+        <div class="swiper-button-prev absolute top-1/2 left-4 transform -translate-y-1/2"></div>
     </div>
 
     <div class="flex bg-black p-4">
@@ -74,6 +123,18 @@
                     button.find('.bookmark-icon').removeClass('far').addClass('fas');
                     Swal.fire('Added to favorites', '', 'success');
                 }
+            });
+            var mySwiper = new Swiper('.swiper-container', {
+                // Swiper options
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
             });
         });
     </script>
