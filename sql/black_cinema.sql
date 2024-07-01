@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 30, 2024 at 11:33 AM
+-- Generation Time: Jul 01, 2024 at 01:19 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -50,7 +50,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id`, `user_id`, `movie_id`, `created_at`) VALUES
-(12, 4, 700, '2024-06-30 18:27:56');
+(13, 4, 700, '2024-07-01 19:21:59');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,16 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `userId`, `movieId`, `createdAt`, `userName`, `userEmail`, `startTime`, `endTime`, `feeAdmin`, `price`, `totalPrice`, `packageName`, `methodPayment`, `promoCode`, `status`, `expiredPayment`, `successPayment`, `room`) VALUES
-(1, 4, 700, '2024-06-30 17:13:49', 'qq', 'qq@gmail.com', '2024-07-01 19:12:00', '2024-07-01 21:26:00', 5000, 1200000, 1205000, '', 'Dana', '', 'pending', '2024-06-30 10:43:49', '2024-06-30 10:13:49', 0);
+(1, 4, 700, '2024-04-30 17:13:49', 'qq', 'qq@gmail.com', '2024-07-01 19:12:00', '2024-07-01 21:26:00', 5000, 1200000, 1205000, '', 'Dana', '', 'pending', '2024-06-30 10:43:49', '2024-06-30 10:13:49', 0),
+(3, 4, 701, '2024-06-30 18:57:14', 'qq', 'qq@gmail.com', '2024-07-01 18:57:00', '2024-07-01 20:36:00', 5000, 1200000, 1205000, 'reguler', 'Dana', '', 'pending', '2024-06-30 12:27:14', '2024-06-30 11:57:14', 1),
+(4, 4, 701, '2024-06-30 19:17:21', 'qq', 'qq@gmail.com', '2024-07-03 19:17:00', '2024-07-03 20:56:00', 5000, 1200000, 1205000, 'reguler', 'Dana', '', 'pending', '2024-06-30 12:47:21', NULL, 2),
+(5, 4, 701, '2024-06-30 20:01:38', 'qq', 'qq@gmail.com', '2024-06-30 20:02:00', '2024-06-30 21:41:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-06-30 13:31:38', NULL, 3),
+(6, 4, 701, '2024-06-30 20:03:11', 'qq', 'qq@gmail.com', '2024-07-02 20:02:00', '2024-07-02 21:41:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-06-30 13:33:11', NULL, 4),
+(7, 4, 701, '2024-06-30 20:03:23', 'qq', 'qq@gmail.com', '2024-07-02 20:02:00', '2024-07-02 21:41:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-06-30 13:33:23', NULL, 5),
+(8, 4, 701, '2024-07-01 19:34:25', 'qq', 'qq@gmail.com', '2024-07-02 20:34:00', '2024-07-02 22:13:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-07-01 13:04:25', NULL, 6),
+(9, 4, 701, '2024-07-01 19:35:51', 'qq', 'qq@gmail.com', '2024-07-09 20:34:00', '2024-07-09 22:13:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-07-01 13:05:51', NULL, 7),
+(10, 4, 701, '2024-07-01 19:38:52', 'qq', 'qq@gmail.com', '2024-07-02 19:38:00', '2024-07-02 21:17:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-07-01 13:08:52', NULL, 8),
+(11, 4, 701, '2024-07-01 19:41:24', 'qq', 'qq@gmail.com', '2024-07-01 19:41:00', '2024-07-01 21:20:00', 5000, 1200000, 1205000, 'reguler', '', '', 'pending', '2024-07-01 20:11:24', NULL, 9);
 
 -- --------------------------------------------------------
 
@@ -201,7 +210,7 @@ INSERT INTO `user` (`user_id`, `user_username`, `user_email`, `user_password`, `
 (1, 'a', 'a@gmail.com', '$2y$10$JQ7tC/.vzN9ThUr8x1tpO.EdJ9VljEKQwSF4InQIvhE5cSiQ3fkXq', NULL, 'https://example.com/default_image.jpg', 'admin', '2024-06-29 19:49:52', '2024-06-29 19:50:08'),
 (2, 'as', 'as@gmail.com', '$2y$10$j1Mhkjh3QiRATUxYKonvtOdqKsr5reLUOhB/K.EhU0PGxhoiNb1WO', NULL, 'https://example.com/default_image.jpg', 'admin', '2024-06-30 14:47:15', '2024-06-30 14:47:35'),
 (3, 'palkon', 'wildannoob354@gmail.com', '$2y$10$Kfku74OZb9fTSnc8C6dKfORaA50lna9flcwfB.jtiLjXJxgMFE.pi', NULL, 'https://example.com/default_image.jpg', 'user', '2024-06-30 14:55:23', NULL),
-(4, 'qq', 'qq@gmail.com', '$2y$10$G/y9t9Ms7gAP3mS/4XQG5OfHxhc7m7qGkVoV7rbjiF2Gdaq6Z9teC', NULL, 'https://example.com/default_image.jpg', 'user', '2024-06-30 15:26:59', NULL);
+(4, 'qq', 'qq@gmail.com', '$2y$10$G/y9t9Ms7gAP3mS/4XQG5OfHxhc7m7qGkVoV7rbjiF2Gdaq6Z9teC', NULL, 'https://deepgrouplondon.com/wp-content/uploads/2019/06/person-placeholder-5.png', 'user', '2024-06-30 15:26:59', '2024-07-01 18:00:15');
 
 --
 -- Indexes for dumped tables
@@ -275,7 +284,7 @@ ALTER TABLE `advertisement`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `movie`
@@ -287,7 +296,7 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `payment_card`

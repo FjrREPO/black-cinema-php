@@ -1,3 +1,30 @@
+<?php
+ob_start(); // Mulai output buffering
+
+include("conn.php");
+
+$query = '';
+
+if (isset($_GET['query'])) {
+    $query = mysqli_real_escape_string($conn, $_GET['query']);
+    $sql = "SELECT * FROM movie WHERE title LIKE '%$query%' OR category LIKE '%$query%'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        $hasil = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        echo "Error: " . mysqli_error($conn); // Handle query error gracefully
+        exit;
+    }
+
+    // Redirect to daftar_pencarian.php with results
+    header("Location: daftar_pencarian?query=" . urlencode($query));
+    exit();
+}
+
+ob_end_flush(); // Akhiri dan kirim output ke browser
+?>
+
 <head>
     <style>
         .swiper-container {
@@ -32,8 +59,28 @@
                 <h6 class="text-xl font-semibold z-20">Siap nonton? Telusuri film sekarang!</h6>
             </div>
             <div class="flex flex-col w-[350px] relative">
-                <input type="text" id="simple-search" class="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Cari film..." required />
+                <form action="daftar_pencarian" method="GET" class="relative h-fit">
+                    <input type="search" id="default-search" name="query" class="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Cari film..." required>
+                    <button type="submit" class="absolute right-2 top-0.5 focus:ring-2 focus:outline-none rounded-lg text-sm px-4 py-2 focus:ring-blue-800"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
+        </div>
+    </div>
+
+    <div class="w-full h-auto p-10 lg:p-20">
+        <div class="flex flex-row w-full gap-5">
+            <a href="#" class="group w-2/5 relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBqMCU8UWpvE7XJ4QmNv0PqNzdhw18Rs77vw&s" loading="lazy" alt="" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+            </div>
+            <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Iklan 1</span>
+            </a>
+            <a href="#" class="group relative flex w-3/5 h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
+            <img src="https://apiexcellent.com/images/blog/cinema-advertising-2-20230804152852.webp" loading="lazy" alt="" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+            </div>
+            <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Iklan 2</span>
+            </a>
         </div>
     </div>
 
