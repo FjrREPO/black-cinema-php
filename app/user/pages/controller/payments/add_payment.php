@@ -39,12 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $packageName = isset($_POST['packageName']) ? mysqli_real_escape_string($conn, $_POST['packageName']) : null;
     $methodPayment = isset($_POST['methodPayment']) ? mysqli_real_escape_string($conn, $_POST['methodPayment']) : null;
     $status = "pending";
+    date_default_timezone_set('Asia/Bangkok');
+
     $expiredPayment = date('Y-m-d H:i:s', strtotime('+30 minutes'));
     $successPayment = null;
 
     $dateStart = new DateTime($startTime);
 
-    function findLargestRoom($conn, $dateStart) {
+    function findLargestRoom($conn, $dateStart)
+    {
         $largestRoom = 0;
         $query = mysqli_query($conn, "SELECT * FROM payment WHERE status != 'canceled'");
         while ($row = mysqli_fetch_assoc($query)) {
@@ -57,7 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $largestRoom;
     }
 
-    function findNextRoom($conn, $dateStart) {
+    function findNextRoom($conn, $dateStart)
+    {
         $largestRoom = findLargestRoom($conn, $dateStart);
         $query = mysqli_query($conn, "SELECT * FROM payment WHERE status != 'canceled'");
         while ($row = mysqli_fetch_assoc($query)) {
@@ -86,4 +90,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 mysqli_close($conn);
-?>

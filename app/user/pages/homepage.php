@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.css" rel="stylesheet" />
     <style>
         .swiper-container {
             width: 100%;
@@ -35,27 +22,56 @@
     </style>
 </head>
 
-<body class="h-full w-full flex flex-wrap bg-cover overflow-x-hidden" style="background-image: url('https://res.cloudinary.com/dutlw7bko/image/upload/v1717413141/Cinema/background_homes_wisn4x.jpg')">
-
-    <div class="relative mt-10 w-full h-[50vh] ">
-        <div class="absolute inset-0 flex items-center justify-center flex-col gap-5 text-center text-white">
-            <h2 class="text-4xl font-bold font-manrope">Heading</h2>
-            <h6 class="text-xl font-bold font-manrope">Subheading</h6>
-            <form class="mt-6 flex items-center justify-center">
-                <label for="default-search" class="sr-only">Search</label>
-                <div class="relative">
-                    <input type="search" id="default-search" class="block w-full px-10 py-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required>
-                    <button type="submit" class="absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 focus:outline-none rounded-lg text-sm px-4 py-2 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                </div>
-            </form>
+<div class="h-screen w-full relative">
+    <div class="relative w-screen h-screen">
+        <img src="https://res.cloudinary.com/dutlw7bko/image/upload/v1717413141/Cinema/background_homes_wisn4x.jpg" alt="bg" class='w-full h-full object-cover object-center absolute z-0' loading='lazy' />
+        <div class="bg-gradient-to-t from-black to-transparent z-10 absolute w-[100vw] h-[30vh] bottom-0 left-0"></div>
+        <div class="flex items-center justify-center flex-col w-full h-full gap-4 text-center z-20">
+            <div class="flex flex-col gap-2">
+                <h2 class="text-4xl font-bold z-20">Nonton film mudah dan nyaman di Jogja</h2>
+                <h6 class="text-xl font-semibold z-20">Siap nonton? Telusuri film sekarang!</h6>
+            </div>
+            <div class="flex flex-col w-[350px] relative">
+                <input type="text" id="simple-search" class="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-5 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Cari film..." required />
+            </div>
         </div>
     </div>
 
-    <!-- Swiper -->
+    <div class='overflow-x-hidden overflow-y-hidden scrollbar-none relative flex flex-nowrap items-center'>
+        <?php
+        include("conn.php");
+        $sql = mysqli_query($conn, "SELECT * FROM movie");
+        $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+        foreach ($hasil as $data) {
+        ?>
+            <div class="flex items-end h-full mr-3">
+                <span class="overflow-hidden text-end flex items-end h-full leading-none text-[180px] tracking-[-15px] font-bold text-[#222c38]">
+                    1
+                </span>
+                <div class='w-[190px] overflow-hidden' style="margin-inline-end: 12px;">
+                    <div class="relative flex overflow-hidden">
+                        <div class='w-[100%] max-h-none scale-95 hover:scale-100 duration-300'>
+                            <div class='w-full' style="max-height: 'none'; user-select: 'none'; pointer-events: 'none';">
+                                <a href="movie_details?id=<?= $data['id'] ?>" class='z-30 w-[190px] h-full'>
+                                    <img src="<?= $data['poster_path'] ?>" alt="poster" class="inline-block w-full h-full object-cover rounded-lg" style="pointer-events: 'none';" />
+                                </a>
+                            </div>
+                            <button class="toggleFavorite absolute top-0 right-0 py-4 px-3 bg-black/80 rounded-tr-lg rounded-bl-xl" data-movie-id="<?= $data['id'] ?>">
+                                <span class="bookmark-icon far fa-bookmark text-yellow-500 text-[25px]"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+    </div>
+
     <div class="swiper-container mt-0 mb-8 relative">
         <div class="swiper-wrapper">
             <?php
-            include "E:\laragon\www\black-cinema-php\config\conn.php";
+            include "../../config/conn.php";
             $sql = mysqli_query($conn, "SELECT * FROM movie LIMIT 6");
             $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
             foreach ($hasil as $data) {
@@ -69,32 +85,9 @@
             }
             ?>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Navigation -->
-        <div class="swiper-button-next absolute top-1/2 right-4 transform -translate-y-1/2"></div>
-        <div class="swiper-button-prev absolute top-1/2 left-4 transform -translate-y-1/2"></div>
     </div>
 
-    <div class="flex bg-black p-4">
-        <?php
-        include("conn.php");
-        $sql = mysqli_query($conn, "SELECT * FROM movie");
-        $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
-        foreach ($hasil as $data) {
-        ?>
-            <div>
-                <a class="flex lg:flex-rw md:flex-row max-w-lg rounded-2xl overflow-hidden m-4 hover:scale-105 transition duration-200 ease-in-out" href="movie_details?id=<?= $data['id'] ?>">
-                    <img class="w-full md:w-60 object-cover" src="<?= $data['poster_path'] ?>" alt="<?= $data['title'] ?>">
-                </a>
-                <button class="toggleFavorite" data-movie-id="<?= $data['id'] ?>">
-                    <span class="bookmark-icon far fa-bookmark text-yellow-500"></span>
-                </button>
-            </div>
-        <?php
-        }
-        ?>
-    </div>
+    <?php include "pages/footer.php"; ?>
 
     <script>
         $(document).ready(function() {
@@ -114,34 +107,40 @@
                 var button = $(this);
                 var isFavorited = localStorage.getItem('favorite_' + movieId);
 
-                if (isFavorited === 'true') {
-                    localStorage.setItem('favorite_' + movieId, 'false');
-                    button.find('.bookmark-icon').removeClass('fas').addClass('far');
-                    Swal.fire('Removed from favorites', '', 'success');
-                } else {
-                    localStorage.setItem('favorite_' + movieId, 'true');
-                    button.find('.bookmark-icon').removeClass('far').addClass('fas');
-                    Swal.fire('Added to favorites', '', 'success');
-                }
+                $.ajax({
+                    url: 'pages/controller/movies/add_favorite.php',
+                    method: 'POST',
+                    data: {
+                        id: movieId,
+                        favorite: !(isFavorited === 'true')
+                    },
+                    success: function(response) {
+                        if (response === 'added') {
+                            localStorage.setItem('favorite_' + movieId, 'true');
+                            button.find('.bookmark-icon').removeClass('far').addClass('fas');
+                            Swal.fire('Added to favorites', '', 'success');
+                        } else if (response === 'removed') {
+                            localStorage.setItem('favorite_' + movieId, 'false');
+                            button.find('.bookmark-icon').removeClass('fas').addClass('far');
+                            Swal.fire('Removed from favorites', '', 'success');
+                        } else {
+                            Swal.fire('Error', 'Something went wrong!', 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        Swal.fire('Error', 'Failed to update favorites', 'error');
+                    }
+                });
             });
+
             var mySwiper = new Swiper('.swiper-container', {
-                // Swiper options
                 loop: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
+                autoplay: {
+                    delay: 5000,
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
+                speed: 500,
             });
         });
     </script>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.4.1/flowbite.min.js"></script>
-</body>
-
-</html>
+</div>

@@ -9,5 +9,5 @@
     RewriteRule ^movie_checkout$ home.php?module=pages/views/movie_checkout [QSA,L]
     RewriteRule ^movie_cart$ home.php?module=pages/views/movie_cart [QSA,L]
 
-    RewriteRule ^keluar$ logout.php [L]
+    RewriteRule ^logout$ logout.php [L]
 </IfModule>

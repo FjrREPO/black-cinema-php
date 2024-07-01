@@ -6,12 +6,12 @@ $queryTotalPrice = mysqli_query($conn, "SELECT SUM(totalPrice) FROM payment WHER
 $rowTotalPrice = mysqli_fetch_assoc($queryTotalPrice);
 ?>
 
-<div>
-    <section class="py-10 relative">
-        <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+<div class="w-screen min-h-screen">
+    <div class="w-full bg-cover bg-black/50">
+        <div class="flex flex-col w-full justify-center items-center pt-[100px]">
             <h2 class="title font-manrope font-bold text-4xl leading-10 mb-8 text-center text-white">Keranjang
             </h2>
-            <?php if(mysqli_num_rows($queryPayment) > 0) { ?>
+            <?php if (mysqli_num_rows($queryPayment) > 0) { ?>
                 <div>
                     <div class="grid md:grid-cols-2 gap-4">
                         <?php
@@ -64,16 +64,15 @@ $rowTotalPrice = mysqli_fetch_assoc($queryTotalPrice);
                         <button class="rounded-full py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">Checkout</button>
                     </div>
                 </div>
-                <?php
-                } else {
-                ?>
+            <?php
+            } else {
+            ?>
                 <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
                     <p class="font-manrope font-semibold text-xl leading-9 text-center">Belum ada transaksi</p>
                 </div>
-                <?php
-                }
-                ?>
-            </div>
+            <?php
+            }
+            ?>
         </div>
-    </section>
+    </div>
 </div>

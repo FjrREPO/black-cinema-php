@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user_username'] = $row['user_username'];
                 $_SESSION['user_email'] = $row['user_email'];
+                $_SESSION['user_image'] = $row['user_image'];
                 $_SESSION['user_role'] = $row['user_role'];
 
                 if ($row['user_role'] == "admin") {

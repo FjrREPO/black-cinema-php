@@ -2,8 +2,9 @@
 include("../../conn.php");
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $movieId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $movieId = isset($_POST['id']) ? intval($_POST['id']) : 0;
+    $favorite = isset($_POST['favorite']) ? $_POST['favorite'] : false;
 
     if ($movieId > 0) {
         $query = "SELECT * FROM movie WHERE id = $movieId";
