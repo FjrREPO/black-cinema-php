@@ -45,11 +45,11 @@ $queryCard = mysqli_query($conn, "SELECT * FROM payment_card");
                             <th scope="col" class="px-4 py-3">Nama Paket</th>
                             <th scope="col" class="px-4 py-3">Metode Pembayaran</th>
                             <th scope="col" class="px-4 py-3">Kode Promo</th>
+                            <th scope="col" class="px-4 py-3">Status</th>
                             <th scope="col" class="px-4 py-3">Pembayaran Expired</th>
                             <th scope="col" class="px-4 py-3">Pembayaran Sukses</th>
                             <th scope="col" class="px-4 py-3">Ruang</th>
-                            <th scope="col" class="px-4 py-3">Status</th>
-                            <th scope="col" colspan="2" class="px-4 py-3">
+                            <th scope="col" colspan="3" class="px-4 py-3">
                                 <span class="sr-only">Aksi</span>
                             </th>
                         </tr>
@@ -75,12 +75,19 @@ $queryCard = mysqli_query($conn, "SELECT * FROM payment_card");
                                 <td class="px-4 py-3"><span><?= $row['successPayment']; ?></span></td>
                                 <td class="px-4 py-3"><span><?= $row['room']; ?></span></td>
                                 <td class="px-4 py-3">
-                                    <a href="edit_payment_list?id=<?= $row['id']; ?>" class="text-green-600 hover:text-green-800">
-                                        <i class="fa-solid fa-pen-to-square text-green-500"></i>
+                                <?php if($row['status'] != 'success') { ?>
+                                    <button class="text-gray-600 hover:text-gray-800 duration-200" onclick="updateStatusPayment(<?= $row['id']; ?>)"><i class="fa-solid fa-circle-check"></i></button>
+                                <?php }else{ ?>
+                                    <button class="text-green-600 hover:text-green-800 duration-200"><i class="fa-solid fa-circle-check"></i></button>
+                                <?php } ?>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="edit_payment_list?id=<?= $row['id']; ?>" class="text-blue-600 hover:text-blue-800 duration-200">
+                                        <i class="fa-solid fa-pen-to-square text-blue-500"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <button class="text-red-600 hover:text-red-800" onclick="deletePaymentList(<?= $row['id']; ?>)"><i class="fa-solid fa-trash text-red-500"></i></button>
+                                    <button class="text-red-600 hover:text-red-800 duration-200" onclick="deletePaymentList(<?= $row['id']; ?>)"><i class="fa-solid fa-trash text-red-500"></i></button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -250,7 +257,7 @@ $queryCard = mysqli_query($conn, "SELECT * FROM payment_card");
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`pages/controller/payments/payment_list/delete_payment_list.php?id=${paymentListId}`, {
@@ -282,6 +289,78 @@ $queryCard = mysqli_query($conn, "SELECT * FROM payment_card");
                             'error'
                         );
                     });
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateStatusPayment(paymentListId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`pages/controller/payments/payment_list/update_status.php?id=${paymentListId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: paymentListId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fetch(`pages/email/resend_payment.php?id=${paymentListId}`, {
+                            method: 'GET'
+                        })
+                        .then(response => response.json())
+                        .then(emailData => {
+                            if (emailData.success) {
+                                Swal.fire(
+                                    'Updated!',
+                                    'The payment has been set to success and email sent.',
+                                    'success'
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Failed to send email notification.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error sending email:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Failed to send email notification.',
+                                'error'
+                            );
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Failed to update the payment status.',
+                            'error'
+                        );
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating payment status:', error);
+                    Swal.fire(
+                        'Error!',
+                        'Failed to update the payment status.',
+                        'error'
+                    );
+                });
             }
         });
     }

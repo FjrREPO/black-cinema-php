@@ -116,6 +116,25 @@ $query = mysqli_query($conn, "SELECT * FROM payment_plan");
                 });
         });
     });
+
+    const checkBookingCount = () => {
+        fetch('pages/controller/payments/check_booking_count.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.count > 6) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Alert',
+                        text: 'More than 6 bookings have passed their endTime.'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error checking booking count:', error);
+            });
+    };
+
+    checkBookingCount();
 </script>
 
 <?php

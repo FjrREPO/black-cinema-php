@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function findLargestRoom($conn, $dateStart)
     {
-        $largestRoom = 0;
+        $largestRoom = 1;
         $query = mysqli_query($conn, "SELECT * FROM payment WHERE status != 'canceled'");
         while ($row = mysqli_fetch_assoc($query)) {
             $paymentStart = new DateTime($row['startTime']);
@@ -63,14 +63,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function findNextRoom($conn, $dateStart)
     {
         $largestRoom = findLargestRoom($conn, $dateStart);
+
         $query = mysqli_query($conn, "SELECT * FROM payment WHERE status != 'canceled'");
+
+        $passedEndTimeCount = 0;
+        $roomCount = 0;
+
         while ($row = mysqli_fetch_assoc($query)) {
-            if ($row['room'] >= $largestRoom) {
-                $largestRoom = $row['room'] + 1;
+            $paymentStart = new DateTime($row['startTime']);
+            $paymentEnd = new DateTime($row['endTime']);
+
+            if ($paymentStart <= $dateStart && $paymentEnd > $dateStart) {
+                if ($paymentEnd <= new DateTime()) {
+                    $passedEndTimeCount++;
+                }
+
+                if ($row['room'] >= $largestRoom) {
+                    $largestRoom = $row['room'] + 1;
+                }
+
+                $roomCount++;
             }
         }
+
+        if ($passedEndTimeCount > 6) {
+            echo "<script>alert('More than 6 bookings have passed their endTime.');</script>";
+        }
+
         return $largestRoom;
     }
+
+
 
     $room = findNextRoom($conn, $dateStart);
 

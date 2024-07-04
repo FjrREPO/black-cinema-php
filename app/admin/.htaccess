@@ -5,7 +5,6 @@
     RewriteRule ^dashboard$ home.php [L]
     RewriteRule ^home$ home.php?module=pages/views/dashboard [L]
     RewriteRule ^movies$ home.php?module=pages/views/movies [L]
-    RewriteRule ^payments$ home.php?module=pages/views/payments [L]
     RewriteRule ^users$ home.php?module=pages/views/users [L]
     RewriteRule ^payment_list$ home.php?module=pages/views/payment_list [L]
     RewriteRule ^payment_card$ home.php?module=pages/views/payment_card [L]

@@ -4,6 +4,12 @@ include '../../config/conn.php';
 $queryPayment = mysqli_query($conn, "SELECT * FROM payment WHERE status = 'pending' AND userId = '{$_SESSION['user_id']}' AND expiredPayment > NOW()");
 $queryTotalPrice = mysqli_query($conn, "SELECT SUM(totalPrice) FROM payment WHERE status = 'pending' AND userId = '{$_SESSION['user_id']}' AND expiredPayment > NOW()");
 $rowTotalPrice = mysqli_fetch_assoc($queryTotalPrice);
+
+$queryCard = mysqli_query($conn, "SELECT * FROM payment_card");
+$rowCard = mysqli_fetch_assoc($queryCard);
+
+$queryPromo = mysqli_query($conn, "SELECT * FROM payment_promo");
+$rowPromo = mysqli_fetch_assoc($queryPromo);
 ?>
 
 <div class="w-screen min-h-screen">
@@ -21,7 +27,7 @@ $rowTotalPrice = mysqli_fetch_assoc($queryTotalPrice);
                         ?>
                             <div class="rounded-2xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 ">
                                 <div class="col-span-12 lg:col-span-3 flex items-center">
-                                    <img src="<?= $rowMovie['poster_path'] ?>" alt="speaker image" class="max-lg:w-full lg:w-[200px] rounded-lg">
+                                    <img src="<?= $rowMovie['poster_path'] ?>" alt="poster" class="max-lg:w-full lg:w-[200px] rounded-lg">
                                 </div>
                                 <div class="col-span-12 lg:col-span-9 detail w-full lg:pl-3 flex flex-col justify-between">
                                     <div>
@@ -46,33 +52,56 @@ $rowTotalPrice = mysqli_fetch_assoc($queryTotalPrice);
                                     </div>
                                 </div>
                             </div>
+                        <?php } ?>
+                    </div>
+                    <div class='flex flex-col items-center justify-center'>
                         <?php
+                        $index = 0;
+                        mysqli_data_seek($queryCard, 0);
+                        while ($rowCard = mysqli_fetch_assoc($queryCard)) {
+                            $isChecked = $index;
+                        ?>
+                            <div class='flex flex-col w-[70vw] lg:w-[40vw] pb-2 items-center'>
+                                <div class='flex flex-row w-full h-20 justify-between rounded-tr-lg rounded-tl-lg <?= $isChecked ? 'bg-gray-200 dark:bg-gray-800' : 'bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer' ?>' onClick='handleClick(<?= $index ?>)'>
+                                    <img src="<?= $rowCard['imageCard'] ?>" alt="pay" class='w-[100px] pl-3 object-contain' />
+                                    <?php if ($isChecked) { ?>
+                                        <input type="radio" class="card-select mr-3" name="cardSelection" value="<?= $rowCard['nameCard'] ?>" <?= $isChecked ? '' : 'checked' ?> required />
+                                    <?php } else { ?>
+                                        <input type="radio" class="card-select mr-3" name="cardSelection" value="<?= $rowCard['nameCard'] ?>" <?= $isChecked ? 'checked' : '' ?> required />
+                                    <?php } ?>
+                                </div>
+                                <div class='flex flex-row justify-between items-center w-full py-2 bg-gray-200 dark:bg-gray-700 text-sm rounded-br-lg rounded-bl-lg border-t-2 border-gray-400 dark:border-gray-600'>
+                                    <span class='text-black dark:text-white pl-4 font-medium'>Bayar dengan <?= $rowCard['nameCard'] ?></span>
+                                    <a href="carakerja?method=<?= $rowCard['nameCard'] ?>" class='text-blue-500 dark:text-blue-400 font-bold mr-3 border-2 border-blue-500 dark:border-blue-400 p-1 rounded-lg cursor-pointer animate-bounce mt-2'><span>Cara Kerja?</span></a>
+                                </div>
+                            </div>
+                        <?php
+                            $index++;
                         }
                         ?>
+                        <input type="text" name="promoCode" placeholder="Masukkan kode promo" required class="px-4 py-2 border border-gray-600 mt-3 rounded-md bg-gray-800 w-[70vw] lg:w-[40vw]">
                     </div>
-                    <div class="flex flex-row w-full justify-between items-center">
-                        <h5 class="font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">Subtotal</h5>
-                        <div class="font-manrope font-semibold text-xl text-white flex flex-row gap-2">
-                            <span>Rp</span>
-                            <span><?= number_format($rowTotalPrice['SUM(totalPrice)'] ?? 0, 2, ',', '.') ?></span>
-                        </div>
-                    </div>
+
                     <div class="max-lg:max-w-lg max-lg:mx-auto">
-                        <p class="font-normal text-base leading-7 text-gray-500 text-center mb-5 mt-6">Shipping taxes, and discounts
-                            calculated
-                            at checkout</p>
+                        <p class="font-normal text-base leading-7 text-gray-500 text-center mb-5 mt-6">Shipping taxes, and discounts calculated at checkout</p>
                         <button class="rounded-full py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">Checkout</button>
                     </div>
                 </div>
-            <?php
-            } else {
-            ?>
+            <?php } else { ?>
                 <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
                     <p class="font-manrope font-semibold text-xl leading-9 text-center">Belum ada transaksi</p>
                 </div>
-            <?php
-            }
-            ?>
+            <?php } ?>
         </div>
     </div>
 </div>
+
+<script>
+    function handleClick(index) {
+        var radios = document.getElementsByName('cardSelection');
+
+        for (var i = 0; i < radios.length; i++) {
+            radios[i].checked = (i === index);
+        }
+    }
+</script>
