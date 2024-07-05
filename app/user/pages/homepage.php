@@ -87,13 +87,14 @@ ob_end_flush(); // Akhiri dan kirim output ke browser
     <div class='overflow-x-hidden overflow-y-hidden scrollbar-none relative flex flex-nowrap items-center'>
         <?php
         include("conn.php");
-        $sql = mysqli_query($conn, "SELECT * FROM movie");
+        $sql = mysqli_query($conn, "SELECT * FROM movie LIMIT 15");
         $hasil = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+        $counter = 1;
         foreach ($hasil as $data) {
         ?>
             <div class="flex items-end h-full mr-3">
-                <span class="overflow-hidden text-end flex items-end h-full leading-none text-[180px] tracking-[-15px] font-bold text-[#222c38]">
-                    1
+                <span class="overflow-hidden text-end flex items-end h-full leading-none text-[180px] tracking-[-25px] font-bold text-[#222c38]">
+                    <?= $counter ?>
                 </span>
                 <div class='w-[190px] overflow-hidden' style="margin-inline-end: 12px;">
                     <div class="relative flex overflow-hidden">
@@ -111,6 +112,7 @@ ob_end_flush(); // Akhiri dan kirim output ke browser
                 </div>
             </div>
         <?php
+        $counter++;
         }
         ?>
     </div>
