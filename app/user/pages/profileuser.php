@@ -6,7 +6,7 @@
         </button>
         <div id="dropdownMenu" class="hidden absolute bg-black right-0 mt-2 w-48 border border-gray-300 shadow-lg rounded-xl p-1 text-white bg-black animate-slide-down">
             <button id="profileButton" class="text-sm w-full p-2 rounded-lg text-left  hover:bg-gray-800 duration-200" type="button">
-                <a href="pages/profile.php">Profile</a>
+                <a href="profile">Profile</a>
             </button>
             <button onclick="window.location.href = 'logout'" class="text-sm w-full p-2 rounded-lg text-left  hover:bg-gray-800 duration-200" type="button">
                 Sign Out

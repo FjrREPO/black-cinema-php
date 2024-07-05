@@ -5,9 +5,11 @@
         </a>
         <div class="flex flex-row gap-2">
             <a href="about"><i class="fa-solid fa-info bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
-            <a href="favorites"><i class="fa-solid fa-bookmark bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>     
-            <a href="notification"><i class="fa-solid fa-bell bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>     
-            <a href="movie_cart"><i class="fa-solid fa-cart-shopping bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>     
+            <a href="faq"><i class="fa-solid fa-question bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
+            <a href="chat"><i class="fa-solid fa-message bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
+            <a href="favorites"><i class="fa-solid fa-bookmark bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
+            <a href="notification"><i class="fa-solid fa-bell bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
+            <a href="movie_cart"><i class="fa-solid fa-cart-shopping bg-gray-900 text-gray-300 border-2 border-gray-700 rounded-lg px-4 py-2 hover:bg-gray-800 duration-200"></i></a>
         </div>
         <div class="items-center justify-between z-50 hidden w-full md:flex md:w-auto" id="navbar-menu">
             <ul class="flex flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0" id="navbar-menu-list">
