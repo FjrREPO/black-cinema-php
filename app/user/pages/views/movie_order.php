@@ -8,7 +8,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_plan");
 ?>
 
 <div class="w-screen min-h-screen bg-cover bg-no-repeat bg-fixed" style="background: url('<?php echo isset($rowMovie['backdrop_path']) ? $rowMovie['backdrop_path'] : ''; ?>'); background-attachment: fixed">
-    <div class="w-full bg-cover bg-black/50">
+    <div class="w-full h-screen bg-cover bg-black/50">
         <div class="flex flex-col w-full justify-center items-center pt-[100px]">
             <h1 class='flex justify-center text-xl font-bold mb-5 mt-5 md:mt-0'>Pilih Jenis Paket</h1>
             <div class="block md:flex md:flex-row gap-5">
